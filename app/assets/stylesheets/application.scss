@@ -18,3 +18,8 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import 'alertify';
+.flash {
+    color: red;
+    font-family: fonte;
+}
+#err-label{color: red;}
