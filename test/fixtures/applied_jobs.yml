@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  job: one
+  applicant_exp: 1.5
+  expected_ctc: 1.5
+  notice_period: 1
+
+two:
+  user: two
+  job: two
+  applicant_exp: 1.5
+  expected_ctc: 1.5
+  notice_period: 1

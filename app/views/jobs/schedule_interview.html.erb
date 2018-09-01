@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <title>JobPortalDemo</title>  
+    
+  </head>
+  <body class="login-bg">
+  
+    
+    <div class="login-box">
+      <div class="container">  
+        
+        <%= form_for @schedule_interview, url: schedule_interview_update_jobs_path(id: @job.id), method: :post do |f|%>
+
+          <div class="login-box-body">
+            <h1 class="login-heading text-center">Schedule Interview</h1>
+            <div class="row">
+              <div class="col-sm-offset-3 col-sm-6 col-md-offset-4 col-md-4">                     
+                <div class="login-form">            
+                  <div class="block-a clearfix">                    
+                    <div class="request-a middle-a new-middle">
+                      <div class="profile-detail">
+                        <h4 class="rqst-heading"><%= @job.job.job_title %></h4>
+                        <h4><%= @job.job.company_name %></h4>
+                        <div class="username-a">Experience: <%= @job.job.experience %></div>
+                        <div class="username-a">Salary: <%= @job.job.salary %></div>
+                        <h4>Applicant Name: <%= @job.user.name %></h4>
+                      </div>
+                    </div>                           
+                  </div>    
+                  <div class="form-group">
+                    <%= f.text_field :interview_time, class: "form-control", placeholder: "Interview Date & Time", required: true, :id=> 'userdatetimepicker1', value: (f.object.interview_time.strftime("%d/%m/%Y %I:%M %p") rescue "")%>
+                  </div>          
+                  <%= f.hidden_field :user_id,value: @job.user_id %>
+                  <button type="submit" class="btn btn-submit btn-block">Apply</button>
+                </div>                  
+              </div>
+            </div>
+          </div>
+        <%end%>
+      </div>            
+    </div>
+    <!-- /.login-box -->
+  </body>
+</html>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#userdatetimepicker1').datetimepicker({
+      // format: 'd/m/Y',
+      useCurrent: false,
+      minDate: new Date()
+    });
+    window.onload = function() {
+      var myInput = document.getElementById('userdatetimepicker1');
+      myInput.onpaste = function(e) {
+        e.preventDefault();
+      }
+    }
+  });
+</script>

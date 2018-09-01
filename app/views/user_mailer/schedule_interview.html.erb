@@ -1,0 +1,7 @@
+Hi <%= @user.name %>, Your interview scheduled successfully. Please assure your availability accordingly.
+<strong> Job Title : <%= @job.job_title %><br>
+
+Company Name : <%= @job.company_name %><br>
+Job Location : <%= @job.job_location %><br>
+Interview Date & Time : <%= @schedule_interview.interview_time.strftime("%b/%m/%Y %I:%M %p") %><br>
+<strong>

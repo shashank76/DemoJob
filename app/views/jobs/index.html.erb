@@ -1,0 +1,61 @@
+<section class="main-block">
+  <div class="container">
+    <div class="box">
+      <div class="box-head clearfix">
+        <div class="col-sm-4 col-xs-12">
+          <h3 class="ff">
+            Jobs
+          </h3>
+        </div>
+        <% if current_user.role.eql?("Organisation")%>
+        <div class="col-sm-8 col-xs-12">
+          <div class="pull-right">
+              <%= link_to 'Add New Job', new_job_path, :class => "btn btn-request" %>
+          </div>
+        </div>
+       <%end%>
+      </div>
+      <div class="box-body">
+        <div class="content-a">
+          <div class="row">            
+            <div class="col-sm-10 col-sm-offset-1">
+              <div class="user-block">
+                <% @jobs.each do |job| %>
+                  <div class="block-a clearfix">
+                    
+                    <div class="request-a middle-a new-middle">
+                      <div class="profile-detail">
+                        <h4 class="rqst-heading"><%= job.job_title %></h4>
+                        <h4><%= job.company_name %></h4>
+                        <div class="username-a">Experience: <%= job.experience %></div>
+                        <div class="username-a">Salary: <%= job.salary %></div>
+                      </div>
+                    </div>
+                    <div class="text-center job-right-btn">
+                      <div class="add-block text-right">
+                        <div class="btn-add m-t-10">
+                          <%= link_to "Details", job_path(id: job.id), :class => "btn btn-blue link-msg"%>
+                          <% if current_user.role.eql?("Organisation") %>
+                            <%= link_to 'Edit', new_job_path(job), :class => "btn btn-blue link-msg" %>                        
+                            <%= link_to 'Destroy',new_job_path, method: :delete, :class => "btn btn-blue link-msg", data: { confirm: 'Are you sure to delete this job ?' } %>
+                          <% elsif current_user.role.eql?("Applicant") %>
+                          	<% if current_user.applied_jobs.pluck(:job_id).include?(job.id)%>
+                          		<div class="btn btn-white link-msg">Applied</div>
+                          	<%else%>
+                          		<%= link_to "Apply", apply_jobs_path(id: job.id), :class => "btn btn-blue link-msg"%>
+                          	<%end%>
+                          <%end%>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                <%end%>
+                <%= will_paginate @jobs %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

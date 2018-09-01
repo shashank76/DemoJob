@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+
+		<title>JobPortalDemo</title>	
+		
+	</head>
+	<body class="login-bg">
+	
+		
+		<div class="login-box">
+			<div class="container">	 
+				
+				<%= form_for @job, url: jobs_path, method: :post do |f|%>
+
+					<div class="login-box-body">
+						<h1 class="login-heading text-center">Job Details</h1>
+						<div class="row">
+							<div class="col-sm-offset-3 col-sm-6 col-md-offset-4 col-md-4">											
+								<div class="login-form">								
+				
+									<div class="form-group">
+										<%= f.text_field :company_name, class: 'form-control', required: true, placeholder: "Company Name"%>
+									</div>
+									
+									<div class="form-group">
+										<%= f.text_field :job_title, class: 'form-control', required: true,placeholder: "Job Title"%>
+									</div>
+									<div class="form-group">
+										<%= f.text_field :job_location, class: 'form-control', required: true, placeholder: "Job Location"%>
+									</div>
+									<div class="form-group">
+										<%= f.text_field :salary, class: 'form-control', required: true, placeholder: "Salary(LPA)"%>
+									</div>									
+									
+									<div class="form-group company_name">
+										<%= f.text_field :experience, class: 'form-control', placeholder: "Experiance(Years)"%>
+									</div>
+									
+									<div class="form-group">
+										<%= f.select :job_sector_id,options_for_job_sector_select,id: "sector-select", class: 'form-control', required: true, placeholder: "Job Sector"%>
+									</div>
+									<div class="form-group">
+										<%= f.select :skill_id,options_for_select(@skills.map{|k,v| k}, @job.try(:skill)), class: 'form-control', required: true, placeholder: "Skill"%>
+									</div>
+									<%= f.hidden_field :user_id,value: current_user.id %>
+									<button type="submit" class="btn btn-submit btn-block">Add</button>
+								</div>									
+							</div>
+						</div>
+					</div>
+				<%end%>
+			</div>						
+		</div>
+		<!-- /.login-box -->
+	</body>
+</html>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#userdatetimepicker1').datetimepicker({
+      format: 'd/m/Y',
+      useCurrent: false,
+      timepicker: false,
+      maxDate: new Date()
+    });
+    window.onload = function() {
+      var myInput = document.getElementById('userdatetimepicker1');
+      myInput.onpaste = function(e) {
+        e.preventDefault();
+      }
+    }
+
+    $(document).on('change', '#job_job_sector_id', function() {
+      sector_id = $(this).val();
+      code = {id: sector_id}
+      $.ajax({type: 'POST', url: "/jobs/get_skills.json", data: code, success: function(result){
+
+        var newOptions = result;
+
+      var select_skill = $('#job_skill_id').empty();
+
+        $.each(newOptions, function(key,value) {
+          select_skill.append($("<option></option>").attr("value", value[0]).text(value[1]));
+        });
+
+      }});
+    });
+
+    $('#job_skill_id').empty();
+
+    $('#job_skill_id').append($("<option></option>").attr("value", 'Select Skill').text('Select Skill')); 
+  });
+</script>

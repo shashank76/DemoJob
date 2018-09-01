@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>JobPortalDemo</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <% if current_user.present? %>
+  <!-- <header class="d-flex align-items-center">
+  <div class="logo mr-auto">
+    <a href="/user/posts/new">
+      <img src="/assets/logo.png"  alt="">
+    </a>
+  </div> -->
+  <!-- <div class="menu ml-auto" id="menubox">
+    <span class="close-menu" id="menuClose"></span>
+    <ul>
+      <li><%#= link_to("Home", jobs_path)%></li>
+      <li><%#= link_to("Applied Jobs", jobs_path)%></li>
+    </ul>
+  </div> -->
+  <nav class="navbar top-nav">
+        <div class="container">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <!-- <a class="navbar-brand" href="/"><img src="/logo.png" class="img-responsive" alt="" /></a> -->
+          </div>
+
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right top-nav-right">
+                
+              <li><%= link_to("Home", jobs_path)%></li>
+              <li><%= link_to("Applied Jobs", applied_jobs_jobs_path)%></li>
+              <li><%= link_to("Scheduled Interviews", scheduled_interview_jobs_path)%></li>
+              <li class="dropdown" id="logout-dropdown" onclick="myFunction()">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%#= current_user.image.present? ? image_tag(current_user.image.url, :width => 50, :height => 50, :class => 'img-circle') : image_tag("/profile.png", :width => 50, :height => 50, :class => 'img-circle')%>
+                  <%= current_user.name%><span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="/user/users/<%= current_user.id%>"> My Profile</a></li>
+                    <li><%= link_to 'Logout',  session_path(id: current_user.id), method: :delete, class: "dropdown-item", data: {confirm: 'Are you sure to logout?' }%></li>                  
+                </ul>
+              </li>
+            </ul>
+          </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-->
+      </nav>
+
+  
+  <a href="javascript:;" class="mob-menu" id="menuShow">
+    <span class="menu-bar"></span>
+  </a>
+  </header>
+<%end%>
+
+
+  <% flash.each do |key, value| %>
+  <%= content_tag(:div, value, class: "flash_notice hide", 'data-type' => "#{key}") %>
+  <% flash.discard(key)%>
+  <% end %>
+  <%= yield%>
+
+
+<footer class="main-footer white-a">
+        <div class="text-center">© All Rights Reserved 2018</div>
+      </footer>
+  </body>
+</html>
+<script type="text/javascript">
+  function myFunction(){
+
+      target = $('#logout-dropdown')
+      if ( target.attr('class').trim() == "dropdown"){target.addClass('open');}
+      else{target.removeClass('open');}
+  }
+</script>

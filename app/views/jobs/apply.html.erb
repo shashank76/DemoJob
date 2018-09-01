@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+
+		<title>JobPortalDemo</title>	
+		
+	</head>
+	<body class="login-bg">
+	
+		
+		<div class="login-box">
+			<div class="container">	 
+				
+				<%= form_for @applied_job, url: apply_for_job_jobs_path(id: @job.id), method: :post do |f|%>
+
+					<div class="login-box-body">
+						<h1 class="login-heading text-center">Apply for Job</h1>
+						<div class="row">
+							<div class="col-sm-offset-3 col-sm-6 col-md-offset-4 col-md-4">											
+								<div class="login-form">						
+									<div class="block-a clearfix">                    
+					                    <div class="request-a middle-a new-middle">
+					                      <div class="profile-detail">
+					                        <h4 class="rqst-heading"><%= @job.job_title %></h4>
+					                        <h4><%= @job.company_name %></h4>
+					                        <div class="username-a">Experience: <%= @job.experience %></div>
+					                        <div class="username-a">Salary: <%= @job.salary %></div>
+					                      </div>
+					                    </div>				                   
+				                    </div>		
+									<div class="form-group">
+										<%= f.text_field :applicant_exp, class: 'form-control', required: true, placeholder: "Total Experience(Years)"%>
+									</div>
+									
+									<div class="form-group">
+										<%= f.text_field :expected_ctc, class: 'form-control', required: true,placeholder: "Expected Salary(LPA)"%>
+									</div>
+									<div class="form-group">
+										<%= f.text_field :notice_period, class: 'form-control', required: true, placeholder: "Notice Period(Months)"%>
+									</div>								
+									<%= f.hidden_field :user_id,value: current_user.id %>
+									<button type="submit" class="btn btn-submit btn-block">Apply</button>
+								</div>									
+							</div>
+						</div>
+					</div>
+				<%end%>
+			</div>						
+		</div>
+		<!-- /.login-box -->
+	</body>
+</html>
